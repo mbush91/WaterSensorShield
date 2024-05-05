@@ -1,0 +1,16 @@
+menu "PSS NRF LTE lib"
+
+config PSS_NRF_LTE
+	bool "Use PSS NRF LTE library"
+	help
+	  This option enables the PSS NRF LTE library
+
+config PSS_NRF_LTE_CONNECTION_STATISTICS
+	bool "print connection statistics"
+	help
+	  print some extra stuff at inform log level
+
+module = PSS_NRF_LTE
+module-str = pss-nfr-lte
+source "subsys/logging/Kconfig.template.log_config"
+endmenu

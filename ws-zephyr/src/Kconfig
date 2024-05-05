@@ -1,0 +1,4 @@
+menu "main"
+  rsource "lib/Kconfig"
+  rsource "trigger/Kconfig"
+endmenu

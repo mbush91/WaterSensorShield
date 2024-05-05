@@ -1,0 +1,42 @@
+/**
+ * GENERATED FILE. Defines task threads and their functions.
+ */
+
+// PCLint suppression. PFG-186 ticket submitted
+//lint -e2701 -e715 -e765 -e552 -e783
+
+#include "scheduler.h"
+#include "scheduler_cfg.h"
+#include <zephyr/logging/log.h>
+
+LOG_MODULE_REGISTER(pss_scheduler_task, CONFIG_PSS_SCHEDULER_LOG_LEVEL);
+
+// Define Threads witch execute runnables
+{% for task in config %}
+k_tid_t task_{{task}}_id;
+struct k_thread task_{{task}}_thread;
+K_THREAD_STACK_DEFINE(task_{{task}}_stack, SCHEDULER_CFG_{{task.upper()}}_STACK_SIZE);
+extern void task_{{task}}_runnables(void* a, void* b, void* c);
+
+{% endfor %}
+
+
+void scheduler_cfg_init_tasks(void)
+{
+{% for task in config %}
+    task_{{task}}_id = k_thread_create(&task_{{task}}_thread,
+                                    task_{{task}}_stack,
+                                    K_THREAD_STACK_SIZEOF(task_{{task}}_stack),
+                                    task_{{task}}_runnables,
+                                    NULL,
+                                    NULL,
+                                    NULL,
+                                    SCHEDULER_CFG_TASK_{{task.upper()}}_PRIORITY,
+                                    0,
+                                    {{ 'K_FOREVER' if config[task].cycleTime != 'T' else 'K_NO_WAIT' }});
+    if(k_thread_name_set(task_{{task}}_id,"{{task}}_thread") != 0) {
+       LOG_WRN("Could not create thread for {{task}}");
+    }
+
+{% endfor %}
+}

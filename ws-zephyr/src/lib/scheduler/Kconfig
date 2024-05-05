@@ -1,0 +1,12 @@
+menu "PSS nrf9160 api scheduler component"
+module = PSS_SCHEDULER
+module-str = pss-scheduler
+
+config PSS_SCHEDULER_DEBUGGER_EN
+    bool "Disables overflow warnings for setting breakpoints"
+    default n
+	help
+	  This disables the overflow warnings.
+
+source "subsys/logging/Kconfig.template.log_config"
+endmenu

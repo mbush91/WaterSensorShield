@@ -1,0 +1,7 @@
+menu "Libraries"
+rsource "battery/Kconfig"
+rsource "scheduler/Kconfig"
+rsource "pss_nrf_lte/Kconfig"
+rsource "pss_mqtt/Kconfig"
+rsource "mqtt_helper/Kconfig"
+endmenu

@@ -1,0 +1,22 @@
+/**
+ * @file
+ * @brief GENERATED FILE. Defines certs for provisioning
+ * Generated: {{time}}
+ */
+#ifndef PSS_MQTT_CERTS_H
+#define PSS_MQTT_CERTS_H
+
+#define PSS_MQTT_CERTS_AVAILABLE 1
+
+static const unsigned char new_client_id[] = "{{info.CID}}";
+
+static const unsigned char ublox_ca_certificate[] =
+{% for l in info.certs.crt.lines %}"{{l}}\n"{% endfor %};
+
+static const unsigned char ublox_key[] =
+{% for l in info.certs.key.lines %}"{{l}}\n"{% endfor %};
+
+static const unsigned char root_ca[] =
+{% for l in info.certs.root.lines %}"{{l}}\n"{% endfor %};
+
+#endif // PSS_MQTT_CERTS_H

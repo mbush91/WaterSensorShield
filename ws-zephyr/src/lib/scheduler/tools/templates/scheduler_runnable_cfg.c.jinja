@@ -1,0 +1,32 @@
+/**
+ * @file
+ * @brief GENERATED FILE. Maps runnables to tasks.
+ */
+
+// PCLint suppression. PFG-186 ticket submitted
+//lint -e534 -e716 -e715
+
+#include "scheduler.h"
+#include "scheduler_cfg.h"
+#include "scheduler_private.h"
+
+{% for task in config %}
+{% for includes in config[task].includes %}
+#include "{{includes}}.h"
+{% endfor %}
+{% endfor %}
+
+{% for task in config %}
+void task_{{task}}_runnables(void* a, void* b, void* c)
+{
+    SCHEDULER_BEGIN_RUNNABLES
+
+{% for runnable in config[task].runnables %}
+        {{runnable}}();
+
+{% endfor %}
+    {{ 'SCHEDULER_END_RUNNABLES' if config[task].cycleTime != 'T' else 'SCHEDULER_END_LOOP' }}
+}
+
+
+{% endfor %}

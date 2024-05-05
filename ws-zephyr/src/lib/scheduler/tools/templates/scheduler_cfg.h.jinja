@@ -1,0 +1,44 @@
+/**
+ * @file
+ * @brief GENERATED FILE. Defines settings for timers and tasks to be configured
+ */
+#ifndef SCHEDULER_CFG_H
+#define SCHEDULER_CFG_H
+
+#include "scheduler.h"
+
+// TIMER CYCLE TIME DEFINITION //////////////////
+{% for task in config %}{% if config[task].cycleTime != 'T' %}
+#define SCHEDULER_CFG_TIMER_{{task.upper()}}    {{config[task].cycleTime}}  /**< Cycle time in ms of the {{task}} timer. */
+{% endif %}{% endfor %}
+
+
+// TASK STACK SIZE DEFINITION //////////////////
+{% for task in config %}
+#define SCHEDULER_CFG_{{task.upper()}}_STACK_SIZE        {{config[task].stackSize}} /**< Stack size of XX task thread. */
+{% endfor %}
+
+// TASK PRIORITY DEFINITION /////////////////////
+{% for task in config %}
+#define SCHEDULER_CFG_TASK_{{task.upper()}}_PRIORITY          {{config[task].priority}}   /**< Priority of the {{task}} task thread. */
+{% endfor %}
+
+
+// TASK THREAD ID DECLARATION ///////////////////
+{% for task in config %}
+extern k_tid_t task_{{task}}_id;    /**< Thread ID of the {{task}} task thread. */
+{% endfor %}
+
+
+/**
+ * @brief Initializes the scheduler tasks.
+ */
+void scheduler_cfg_init_tasks(void);
+
+/**
+ * @brief Initializes the scheduler timers.
+ */
+void scheduler_cfg_init_timers(void);
+
+#endif // SCHEDULER_CFG_H
+

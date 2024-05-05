@@ -1,0 +1,73 @@
+menu "Battery Library for sampling battery voltage"
+
+config BATTERY_LIB
+	bool "BATTERY lib Support"
+	help
+	  This option enables the battery measure library
+
+config BATTERY_LIB_GPIO_EN
+	bool "BATTERY toggle GPIO before reads"
+	default n
+	help
+	  This option enables the battery measure library
+
+config BATTERY_LIB_MAX_VOLTAGE
+	int "Battery max voltage in mV"
+	depends on BATTERY_LIB
+	default 4200
+	help
+	  This option sets the battery max voltage
+
+config BATTERY_LIB_LOW_VOLTAGE
+	int "Battery low voltage in mV (should be about where the discharge curve knee is)"
+	depends on BATTERY_LIB
+	default 3400
+	help
+	  This option sets the battery min voltage
+
+config BATTERY_LIB_MIN_OPERATING_VOLTAGE
+	int "Battery min voltage in mV for system operation (0% battery)"
+	depends on BATTERY_LIB
+	default 3200
+	help
+	  This option sets the battery min voltage
+
+config BATTERY_LIB_PLAUS_LOW_VOLTAGE
+	int "Battery lowest voltage the battery can have in mV and be a valid battery"
+	depends on BATTERY_LIB
+	default 2800
+	help
+	  This option sets the battery low side plausibility voltage
+
+config BATTERY_LIB_LOW_VOLTAGE_PERCENT
+	int "Battery percentage at low voltage"
+	depends on BATTERY_LIB
+	default 10
+	help
+	  This option sets the battery min voltage
+
+config BATTERY_LIB_DIV_R1
+	int "Battery voltage divider R1 value (high side)"
+	depends on BATTERY_LIB
+	default 1200
+	help
+	  This option sets the battery div gain
+
+config BATTERY_LIB_DIV_R2
+	int "Battery voltage divider R2 value (low side)"
+	depends on BATTERY_LIB
+	default 3000
+	help
+	  This option sets the battery div gain
+
+config BATTERY_LIB_VOTLAGE_DROP
+	int "Approximate voltage drop from origianl source"
+	depends on BATTERY_LIB
+	default 0
+	help
+	  This option applies and offset to the battery mV
+
+module = BATTERY
+module-str = battery
+source "subsys/logging/Kconfig.template.log_config"
+endmenu

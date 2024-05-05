@@ -1,0 +1,6 @@
+menu "GPIO Events"
+
+module = TRIGGER
+module-str = trigger
+source "subsys/logging/Kconfig.template.log_config"
+endmenu

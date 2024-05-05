@@ -1,0 +1,31 @@
+menu "PSS nrf9160 api MQTT component"
+
+config PSS_MQTT_HOST
+	string "The Host or Domain destination for MQTT Broker"
+	default "pp.services.u-blox.com"
+	help
+	  Destination host/domain of the URL (for instance: 'example.com')
+
+
+config PSS_MQTT_FORCE_PROVISION
+    bool "Force MQTT Provisioning"
+    default n
+	help
+	  This forces overwriting certs if they already exist.
+
+config PSS_MQTT_DISABLE_SUBSCRIPTIONS
+    bool "Disable MQTT Subscriptions"
+    default n
+	help
+	  This disables MQTT subscriptions for testing
+
+config PSS_MQTT_DUMP_HEX
+    bool "Dump Hex Bytes to DBG log"
+    default n
+	help
+	  This dumps received byted to the DBG logs.
+
+module = PSS_MQTT
+module-str = pss-mqtt
+source "subsys/logging/Kconfig.template.log_config"
+endmenu

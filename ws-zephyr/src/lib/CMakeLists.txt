@@ -1,0 +1,5 @@
+add_subdirectory(scheduler)
+add_subdirectory(battery)
+add_subdirectory(pss_nrf_lte)
+add_subdirectory(pss_mqtt)
+add_subdirectory(mqtt_helper)
